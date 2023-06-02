@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
+use App\Models\SermonDay;
 use Illuminate\Http\Request;
+use App\Http\Requests\SermonDayStoreRequest;
+use App\Http\Requests\SermonDayUpdateRequest;
 
 class SermonDaysController extends Controller
 {
@@ -13,7 +17,11 @@ class SermonDaysController extends Controller
      */
     public function index()
     {
-        //
+        $sermonDays = SermonDay::all();
+        return Inertia::render('SermonDays/SermonDaysList', [
+            'sermonDays' => $sermonDays,
+            'daysCount' => $sermonDays->count(),
+        ]);
     }
 
     /**
@@ -23,7 +31,7 @@ class SermonDaysController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('SermonDays/AddSermonDays');
     }
 
     /**
@@ -32,9 +40,16 @@ class SermonDaysController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SermonDayStoreRequest $request)
     {
-        //
+        SermonDay::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'type' => 'Poya Day',
+            'date' => $request->date,
+        ]);
+
+        return redirect('/sermon_days')->with('success', 'Sermon Day added successfully!');
     }
 
     /**
@@ -56,7 +71,12 @@ class SermonDaysController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $sermon_day = SermonDay::findOrFail($id);
+
+        return Inertia::render('SermonDays/EditSermonDay', [
+            'sermonDay' => $sermon_day,
+        ]);
     }
 
     /**
@@ -66,9 +86,14 @@ class SermonDaysController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SermonDayUpdateRequest $request, $id)
     {
-        //
+        $sermon_day = SermonDay::findOrFail($id);
+
+        $sermon_day->update($request->all());
+
+        return redirect('/sermon_days')->with('success', 'Sermon Day updated successfully!');
+
     }
 
     /**

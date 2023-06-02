@@ -11,10 +11,11 @@ class HomeController extends Controller
     public function dashboardView()
     {
 
+        if (auth()->user()->hasRole('admin')) {
+            return Inertia::render('AdminDashboard');
+        } else {
+            return Inertia::render('Dashboard');
+        }
         
-
-        return Inertia::render('Dashboard', [
-
-        ]);
     }
 }

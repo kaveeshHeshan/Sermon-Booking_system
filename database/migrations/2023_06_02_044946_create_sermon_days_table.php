@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('sermon_days', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
+            $table->mediumText('description');
             $table->string('type');
             $table->date('date');
             $table->timestamps();

@@ -11,7 +11,6 @@ class SermonBooking extends Model
     
     protected $fillable = [
         'sermon_day_id',
-        'title',
         'description',
         'status',
         'booked_by_id',

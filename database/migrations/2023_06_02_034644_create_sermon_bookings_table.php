@@ -17,8 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('sermon_day_id');
             $table->integer('booked_by_id');
-            $table->string('title');
-            $table->string('description');
+            $table->mediumText('description');
             $table->string('status');
             $table->timestamps();
         });

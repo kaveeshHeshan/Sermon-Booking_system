@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 
 class SermonBookingController extends Controller
@@ -23,7 +24,8 @@ class SermonBookingController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('SermonBookings/AddSermonBooking');
+
     }
 
     /**

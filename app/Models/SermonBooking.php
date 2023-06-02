@@ -15,4 +15,16 @@ class SermonBooking extends Model
         'status',
         'booked_by_id',
     ];
+
+    // Related Sermon Day Data
+    public function sermonDayData()
+    {
+        return $this->belongsTo('App\Models\SermonDay', 'sermon_day_id', 'id');
+    }
+
+    // Related Sermon Booked User Data
+    public function sermonBookedUserData()
+    {
+        return $this->belongsTo('App\Models\UserProfile', 'booked_by_id', 'user_id');
+    }
 }

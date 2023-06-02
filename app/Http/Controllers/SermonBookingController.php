@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
+use App\Models\SermonDay;
 use Illuminate\Http\Request;
+use App\Models\SermonBooking;
+use App\Http\Requests\SermonBookingStoreRequest;
 
 class SermonBookingController extends Controller
 {
@@ -24,7 +27,12 @@ class SermonBookingController extends Controller
      */
     public function create()
     {
-        return Inertia::render('SermonBookings/AddSermonBooking');
+        $poyaDays = SermonDay::select('id', 'title', 'date')->doesntHave('sermonBookingData')->get();
+
+        return Inertia::render('SermonBookings/AddSermonBooking', [
+            'poya_days' => $poyaDays,
+            'poya_days_count' => $poyaDays->count(),
+        ]);
 
     }
 
@@ -34,9 +42,17 @@ class SermonBookingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SermonBookingStoreRequest $request)
     {
-        //
+        SermonBooking::create([
+            'sermon_day_id' => $request->sermon_day_id,
+            'description' => $request->description,
+            'status' => 'requested',
+            'booked_by_id' => auth()->user()->id,
+        ]);
+
+        return redirect('/dashboard')->with('success', 'Sermon Booking successfully requested!');
+
     }
 
     /**

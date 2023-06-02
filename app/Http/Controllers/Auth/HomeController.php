@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use App\Models\SermonBooking;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
@@ -12,9 +13,23 @@ class HomeController extends Controller
     {
 
         if (auth()->user()->hasRole('admin')) {
-            return Inertia::render('AdminDashboard');
+
+            $userBookings = SermonBooking::with(['sermonDayData', 'sermonBookedUserData'])->get();
+
+            return Inertia::render('AdminDashboard',[
+                'user_bookings' => $userBookings,
+                'user_bookings_count' => $userBookings->count(),
+            ]);
+
         } else {
-            return Inertia::render('Dashboard');
+
+            $userBookings = SermonBooking::with(['sermonDayData', 'sermonBookedUserData'])->where('booked_by_id', auth()->user()->id)->get();
+
+            return Inertia::render('Dashboard', [
+                'user_bookings' => $userBookings,
+                'user_bookings_count' => $userBookings->count(),
+            ]);
+
         }
         
     }

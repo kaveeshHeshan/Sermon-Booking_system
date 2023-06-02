@@ -1,6 +1,12 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
+
+defineProps({
+    user_bookings: Array,
+    user_bookings_count: Number,
+});
+
 </script>
 
 <template>
@@ -21,130 +27,128 @@ import { Head, Link } from '@inertiajs/vue3';
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex items-center justify-center text-center">
             <div class="w-screen bg-white overflow-hidden shadow-sm sm:rounded-lg p-12 w-full">
-                <div class="border border-gray-400 border-dashed p-12 rounded">
-                    <i class='bx bx-plus text-[40px] text-gray-600'></i>
-                    <p class="text-gray-600">Add a New Sermon Booking Request</p>
-                    <br>
-                    <Link :href="route('sermonBooking.create')" class="bg-[#a855f7] rounded px-6 py-3 text-white">Add Bookings</Link>
-                    <br>
-                    <br>
-                </div>
-                <div class="">
-                        <br>
+                <div v-if="user_bookings_count > 0" class="">
+                    <div class="items-right justify-right text-right">
                         <div class="">
-                            
+                            <Link
+                                :href="route('sermonBooking.create')"
+                                class="bg-[#a855f7] rounded px-6 py-3 text-white"
+                                >
+                                <i class='bx bx-plus-circle'></i> Add Sermon Booking
+                            </Link>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="">
+                        <div class="">
+                            <div class=""></div>
+                        </div>
+                        <hr>
+                        <br>
+                        <div class=""> 
                             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                <table class="w-full text-sm text-left text-blue-100 dark:text-blue-100">
-                                    <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
+                                <ul role="list" class="divide-y divide-gray-100">
+                                    <li class="flex justify-between px-10 py-5">
+                                        <!-- <pre>{{user_booking}}</pre> -->
+                                        <!-- <div class="flex gap-x-4">
+                                            <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                            <div class="min-w-0 flex-auto">
+                                                <p class="text-sm font-semibold leading-6 text-gray-900">{{user_booking.sermon_booked_user_data.first_name}} {{user_booking.sermon_booked_user_data.last_name}}</p>
+                                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">{{user_booking.sermon_booked_user_data.email}}</p>
+                                            </div>
+                                        </div> -->
+                                        <div class="hidden sm:flex sm:flex-col sm:items-center font-bold">
+                                            <p class="text-sm leading-6 text-gray-900">Day /Title</p>
+                                        </div>
+                                        <div class="hidden sm:flex sm:flex-col sm:items-center font-bold">
+                                            <p class="mt-1 text-xs leading-5 text-gray-900 uppercase">Date</p>
+                                        </div>
+                                        <div class="hidden sm:flex sm:flex-col sm:items-end font-bold">
+                                            <p class="mt-1 text-xs leading-5 text-gray-900 uppercase">Status</p>
+                                        </div>
+                                    </li>
+                                    <li v-for="user_booking in user_bookings" class="flex justify-between px-10 py-5">
+                                        <!-- <pre>{{user_booking}}</pre> -->
+                                        <!-- <div class="flex gap-x-4">
+                                            <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                            <div class="min-w-0 flex-auto">
+                                                <p class="text-sm font-semibold leading-6 text-gray-900">{{user_booking.sermon_booked_user_data.first_name}} {{user_booking.sermon_booked_user_data.last_name}}</p>
+                                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">{{user_booking.sermon_booked_user_data.email}}</p>
+                                            </div>
+                                        </div> -->
+                                        <div class="hidden sm:flex sm:flex-col sm:items-start">
+                                            <p class="text-sm leading-6 text-gray-900">{{user_booking.sermon_day_data.title}}</p>
+                                        </div>
+                                        <div class="hidden sm:flex sm:flex-col sm:items-center">
+                                            <p class="mt-1 text-xs leading-5 text-gray-500 uppercase">{{user_booking.sermon_day_data.date}}</p>
+                                        </div>
+                                        <div class="hidden sm:flex sm:flex-col sm:items-end">
+                                            <p v-if="user_booking.status === 'requested'" class="mt-1 text-xs leading-5 text-gray-500 uppercase bg-[#fbbf24] text-white py-1 px-3 rounded">{{user_booking.status}}</p>
+                                            <p v-else-if="user_booking.status === 'booked'" class="mt-1 text-xs leading-5 text-gray-500 uppercase bg-[#22c55e] text-white py-1 px-3 rounded">{{user_booking.status}}</p>
+                                            <p v-else class="mt-1 text-xs leading-5 text-gray-500 uppercase bg-[#dc2626] text-white py-1 px-3 rounded">{{user_booking.status}}</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <!-- <table class="w-full text-sm text-left">
+                                    <thead class="text-xs text-dark uppercase bg-white border-b border-gray-400">
                                         <tr>
                                             <th scope="col" class="px-6 py-3">
-                                                Product name
+                                                Name
                                             </th>
                                             <th scope="col" class="px-6 py-3">
-                                                Color
+                                                Description
                                             </th>
                                             <th scope="col" class="px-6 py-3">
-                                                Category
+                                                Date
                                             </th>
                                             <th scope="col" class="px-6 py-3">
-                                                Price
+                                                Type
                                             </th>
                                             <th scope="col" class="px-6 py-3">
-                                                Action
+                                                
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="bg-blue-500 border-b border-blue-400">
-                                            <th scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
-                                                Apple MacBook Pro 17"
+                                        <tr v-for="user_booking in user_bookings" class="bg-white">
+                                            <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                                                {{ user_booking.id }}
                                             </th>
                                             <td class="px-6 py-4">
-                                                Silver
+                                                {{ user_booking.description }}
                                             </td>
                                             <td class="px-6 py-4">
-                                                Laptop
+                                                {{ user_booking.sermon_day_id }}
                                             </td>
                                             <td class="px-6 py-4">
-                                                $2999
+                                                {{ user_booking.status }}
                                             </td>
                                             <td class="px-6 py-4">
-                                                <a href="#" class="font-medium text-white hover:underline">Edit</a>
-                                            </td>
-                                        </tr>
-                                        <tr class="bg-blue-500 border-b border-blue-400">
-                                            <th scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
-                                                Microsoft Surface Pro
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                White
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                Laptop PC
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                $1999
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                <a href="#" class="font-medium text-white hover:underline">Edit</a>
-                                            </td>
-                                        </tr>
-                                        <tr class="bg-blue-500 border-b border-blue-400">
-                                            <th scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
-                                                Magic Mouse 2
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                Black
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                Accessories
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                $99
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                <a href="#" class="font-medium text-white hover:underline">Edit</a>
-                                            </td>
-                                        </tr>
-                                        <tr class="bg-blue-500 border-b border-blue-400">
-                                            <th scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
-                                                Google Pixel Phone
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                Gray
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                Phone
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                $799
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                <a href="#" class="font-medium text-white hover:underline">Edit</a>
-                                            </td>
-                                        </tr>
-                                        <tr class="bg-blue-500 border-blue-40">
-                                            <th scope="row" class="px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100">
-                                                Apple Watch 5
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                Red
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                Wearables
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                $999
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                <a href="#" class="font-medium text-white hover:underline">Edit</a>
+                                                <Link v-show="user_booking.status === 'requested'"
+                                                    :href="route('sermonBooking.edit', user_booking.id)"
+                                                    class="bg-[#facc15] rounded px-3 py-2 text-white"
+                                                    >
+                                                    <i class='bx bxs-edit'></i>
+                                                </Link>
                                             </td>
                                         </tr>
                                     </tbody>
-                                </table>
+                                </table> -->
                             </div>
                         </div>
                     </div>
+                </div>
+                <div v-else class="">
+                    <div class="border border-gray-400 border-dashed p-12 rounded">
+                        <i class='bx bx-plus text-[40px] text-gray-600'></i>
+                        <p class="text-gray-600">Add New Sermon Days</p>
+                        <br>
+                        <Link :href="route('sermonBooking.create')" class="bg-[#a855f7] rounded px-6 py-3 text-white">Add Sermon Booking</Link>
+                        <br>
+                        <br>
+                    </div>
+                    
+                </div>
             </div>
         </div>
         <br>

@@ -15,4 +15,10 @@ class SermonDay extends Model
         'type',
         'date',
     ];
+
+    // Related Booking Data
+    public function sermonBookingData()
+    {
+        return $this->hasOne('App\Models\SermonBooking', 'sermon_day_id', 'id');
+    }
 }

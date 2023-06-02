@@ -19,28 +19,28 @@ defineProps({
 
         <div class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8 flex items-center justify-center text-center">
             <div class="w-screen bg-white overflow-hidden shadow-sm sm:rounded-lg p-12 w-full">
-                <div class="items-right justify-right text-right">
-                    <div class="">
-                        <Link
-                            :href="route('sermonDays.create')"
-                            class="bg-[#a855f7] rounded px-6 py-3 text-white"
-                            >
-                            <i class='bx bx-plus-circle'></i> Add Sermon Days
-                        </Link>
-                    </div>
-                </div>
-                <br>
                 <div v-if="daysCount === 0" class="">
                     <div class="border border-gray-400 border-dashed p-12 rounded">
                         <i class='bx bx-plus text-[40px] text-gray-600'></i>
                         <p class="text-gray-600">Add New Sermon Days</p>
                         <br>
-                        <a href="" class="bg-[#a855f7] rounded px-6 py-3 text-white">Add Sermon Days</a>
+                        <Link :href="route('sermonDays.create')" class="bg-[#a855f7] rounded px-6 py-3 text-white">Add Sermon Days</Link>
                         <br>
                         <br>
                     </div>
                 </div>
                 <div v-else class="">
+                    <div class="items-right justify-right text-right">
+                        <div class="">
+                            <Link
+                                :href="route('sermonDays.create')"
+                                class="bg-[#a855f7] rounded px-6 py-3 text-white"
+                                >
+                                <i class='bx bx-plus-circle'></i> Add Sermon Days
+                            </Link>
+                        </div>
+                    </div>
+                    <br>
                     <div class="">
                         <div class="">
                             <div class=""></div>

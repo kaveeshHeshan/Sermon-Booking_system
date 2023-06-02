@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
@@ -15,6 +16,9 @@
 
         {{-- Datatables --}}
         <link href="https://cdn.datatables.net/v/dt/dt-1.13.4/af-2.5.3/r-2.4.1/datatables.min.css" rel="stylesheet"/>
+
+        {{-- Sweet alert CSS CDN --}}
+        <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.16/dist/sweetalert2.min.css" rel="stylesheet">
 
         <style>
             body{
@@ -36,4 +40,7 @@
     
     {{-- Datatables --}}
     <script src="https://cdn.datatables.net/v/dt/dt-1.13.4/af-2.5.3/r-2.4.1/datatables.min.js"></script>
+
+    {{-- Sweet Alert 2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.16/dist/sweetalert2.min.js"></script>
 </html>

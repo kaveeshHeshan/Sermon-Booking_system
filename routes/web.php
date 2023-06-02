@@ -51,6 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/sermon/booking/store', [SermonBookingController::class, 'store'])->name('sermonBooking.store');
     Route::get('/sermon/booking/{id}/edit', [SermonBookingController::class, 'edit'])->name('sermonBooking.edit');
     Route::get('/sermon/booking/{id}/update', [SermonBookingController::class, 'update'])->name('sermonBooking.update');
+    Route::post('/sermon/booking/acceptance', [SermonBookingController::class, 'acceptBookingRequest'])->name('sermonBookingStatus.acceptance');
+    Route::post('/sermon/booking/decline', [SermonBookingController::class, 'declineBookingRequest'])->name('sermonBookingStatus.decline');
 
 });
 

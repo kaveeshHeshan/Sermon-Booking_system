@@ -99,4 +99,37 @@ class SermonBookingController extends Controller
     {
         //
     }
+
+    public function acceptBookingRequest(Request $request)
+    {
+        $bookingId = $request->booking_id;
+
+        $booking = SermonBooking::findOrFail($bookingId);
+
+        $booking->update([
+            'status' => 'booked',
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Sermon Booking request accepted successfully!'
+        ]);
+
+    }
+
+    public function declineBookingRequest(Request $request)
+    {
+        $bookingId = $request->booking_id;
+
+        $booking = SermonBooking::findOrFail($bookingId);
+
+        $booking->update([
+            'status' => 'declined',
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Sermon Booking request declined successfully!'
+        ]);
+    }
 }

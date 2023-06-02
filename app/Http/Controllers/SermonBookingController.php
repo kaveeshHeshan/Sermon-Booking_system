@@ -27,7 +27,11 @@ class SermonBookingController extends Controller
      */
     public function create()
     {
-        $poyaDays = SermonDay::select('id', 'title', 'date')->doesntHave('sermonBookingData')->get();
+        $poyaDays = SermonDay::select('id', 'title', 'date')
+            ->doesntHave('sermonBookingData')
+            ->orWhereHas('sermonBookingData', function ($query) {
+                $query->where('status', 'declined');
+            })->get();
 
         return Inertia::render('SermonBookings/AddSermonBooking', [
             'poya_days' => $poyaDays,

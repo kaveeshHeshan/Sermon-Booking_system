@@ -1,89 +1,91 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
+import axios from 'axios';
 
 defineProps({
     user_bookings: Array,
     user_bookings_count: Number,
 });
 
-
+let APP_URL = "http://127.0.0.1:8000";
 
 const acceptRequest = (bookingId) => {
     
-    let requestUrl = '/sermon/booking/acceptance';
+    axios.post(APP_URL+'/sermon/booking/acceptance', {
+        booking_id: bookingId,
+    })
+    .then(function (response) {
+        console.log(response);
+        Swal.fire({
+            toast: true,
+            position: 'bottom-end',
+            icon: 'success',
+            title: response.data.message,
+            text:'Wait for the page reload.',
+            showConfirmButton: false,
+            timer: 3500
+        });
 
-    sendAjaxRequests(requestUrl, bookingId);
+         //close alert
+        Swal.hideLoading();
+
+        // Delay page reload untile the sweet alert is closed
+        setTimeout(function() {
+            location.reload();
+        }, 4000);
+    })
+    .catch(function (error) {
+        Swal.fire({
+            toast: true,
+            position: 'bottom-end',
+            icon: 'error',
+            title: "Something went wrong!",
+            showConfirmButton: false,
+            timer: 3500
+        });
+        //close alert
+        Swal.hideLoading();
+    });
 };
 
 const declineRequest = (bookingId) => {
     
-    let requestUrl = '/sermon/booking/decline';
+    axios.post(APP_URL+'/sermon/booking/decline', {
+        booking_id: bookingId,
+    })
+    .then(function (response) {
+        Swal.fire({
+            toast: true,
+            position: 'bottom-end',
+            icon: 'success',
+            title: response.data.message,
+            text:'Wait for the page reload.',
+            showConfirmButton: false,
+            timer: 3500
+        });
 
-    sendAjaxRequests(requestUrl, bookingId);
+         //close alert
+        Swal.hideLoading();
+
+        // Delay page reload untile the sweet alert is closed
+        setTimeout(function() {
+            location.reload();
+        }, 4000);
+    })
+    .catch(function (error) {
+        Swal.fire({
+            toast: true,
+            position: 'bottom-end',
+            icon: 'error',
+            title: "Something went wrong!",
+            showConfirmButton: false,
+            timer: 3500
+        });
+        //close alert
+        Swal.hideLoading();
+    });
 };
-
-function sendAjaxRequests(requestURL, bookingId ) {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    let APP_URL = "http://127.0.0.1:8000";
-
-    $.ajax({
-        type: 'POST',
-        url: APP_URL+requestURL,
-        data: {
-            booking_id: bookingId,
-        },
-        success: function(response) {
-            if (response.status == 'success') {
-                Swal.fire({
-                    toast: true,
-                    position: 'bottom-end',
-                    icon: 'success',
-                    title: response.message,
-                    text:'Wait for the page reload.',
-                    showConfirmButton: false,
-                    timer: 3500
-                });
-
-            } else {
-                Swal.fire({
-                    toast: true,
-                    position: 'bottom-end',
-                    icon: 'error',
-                    title: response.message,
-                    showConfirmButton: false,
-                    timer: 3500
-                })
-            }
-
-            //close alert
-            Swal.hideLoading();
-
-            // Delay page reload untile the sweet alert is closed
-            setTimeout(function() {
-                location.reload();
-            }, 4000);
-        },
-        error: function(response) {
-
-            Swal.fire({
-                toast: true,
-                position: 'bottom-end',
-                icon: 'error',
-                title: "Something went wrong!",
-                showConfirmButton: false,
-                timer: 3500
-            });
-            //close alert
-            Swal.hideLoading();
-        }
-    });
-}
 
 </script>
 

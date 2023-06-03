@@ -27,9 +27,9 @@ As I mentioned in the introduction, I have used following technologies to build 
 7. Run **php artisan migrate** to create tables in database.
 8. You will have to run seeders respectively.
 
-    -   1. RolesSeeder
-    -   2. AdminSeeder
-    -   3. PoyaDaysSeeder
+    - RolesSeeder
+    - AdminSeeder
+    - PoyaDaysSeeder
 
 9. Then again run **php artisan serve** in a terminal.
 10. After that run **npm run dev** in another terminal.

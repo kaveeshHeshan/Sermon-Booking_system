@@ -27,4 +27,11 @@ class SermonBooking extends Model
     {
         return $this->belongsTo('App\Models\UserProfile', 'booked_by_id', 'user_id');
     }
+
+    // Related Sermon Booked payment Data
+    public function paymentData()
+    {
+        return $this->hasOne('App\Models\BankPaymentSlip', 'sermon_booking_id', 'id');
+    }
+
 }

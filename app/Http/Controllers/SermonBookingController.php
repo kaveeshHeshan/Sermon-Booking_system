@@ -6,6 +6,8 @@ use Inertia\Inertia;
 use App\Models\SermonDay;
 use Illuminate\Http\Request;
 use App\Models\SermonBooking;
+use App\Models\BankPaymentSlip;
+use App\Http\Requests\BankSlipImageStoreRequest;
 use App\Http\Requests\SermonBookingStoreRequest;
 
 class SermonBookingController extends Controller
@@ -134,6 +136,68 @@ class SermonBookingController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Sermon Booking request declined successfully!'
+        ]);
+    }
+
+    public function paySlipUploadView($id)
+    {
+        return Inertia::render('SermonBookings/AddPaymentSlip', [
+            'bookingId' => $id,
+        ]);
+    }
+
+    public function paySlipUpload(BankSlipImageStoreRequest $request, $id)
+    {
+
+        if ($request->hasFile('slipImage')) {
+
+            // Get filename with extension
+            $fileNameWithExtension = $request->file('slipImage')->getClientOriginalName();
+
+            // Get Just File Name
+            $fileName = pathinfo($fileNameWithExtension, PATHINFO_FILENAME);
+
+            // Get Extension
+            $extension = $request->file('slipImage')->getClientOriginalExtension();
+
+            // File name to Store
+            if (str_contains($fileName, '/') || str_contains($fileName, ':')) {
+
+                $charcrs = array('/', ':');
+
+                $fileNameModified = str_replace($charcrs, '-', $fileName);
+                $fileNameToStore = time() . auth()->user()->id . '-payment-slip-' . $fileNameModified .'.'.$extension;
+
+            }else {
+
+                $fileNameToStore = time() . auth()->user()->id . '-payment-slip-' . $fileName .'.'.$extension;
+
+            }
+
+            // Upload Image
+            $path = $request->file('slipImage')->storeAs('public/payment_slips', $fileNameToStore);
+
+            $request->merge(['bank_slip_image' => $fileNameToStore]);
+
+            BankPaymentSlip::create([
+                'sermon_booking_id' => $id,
+                'payment_by_id' => auth()->user()->id,
+                'bank_slip_image' => $request->bank_slip_image,
+            ]);
+
+        }
+
+        return redirect('/dashboard')->with('success', 'Payment Slip stored successfully!');
+
+    }
+
+    public function paySlipView($id)
+    {
+
+        $payment = BankPaymentSlip::findOrFail($id);
+
+        return Inertia::render('SermonBookings/PaymentView', [
+            'payment_detail' => $payment,
         ]);
     }
 }

@@ -53,6 +53,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/sermon/booking/{id}/update', [SermonBookingController::class, 'update'])->name('sermonBooking.update');
     Route::post('/sermon/booking/acceptance', [SermonBookingController::class, 'acceptBookingRequest'])->name('sermonBookingStatus.acceptance');
     Route::post('/sermon/booking/decline', [SermonBookingController::class, 'declineBookingRequest'])->name('sermonBookingStatus.decline');
+    
+    Route::get('/sermon/booking/payment_slip/{id}/create', [SermonBookingController::class, 'paySlipUploadView'])->name('sermonBooking.paySlip.create');
+    Route::post('/sermon/booking/payment_slip/{id}/store', [SermonBookingController::class, 'paySlipUpload'])->name('sermonBooking.paySlip.store');
+    Route::get('/sermon/booking/payment_slip/{id}/show', [SermonBookingController::class, 'paySlipView'])->name('sermonBooking.paySlip.show');
 
 });
 

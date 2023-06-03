@@ -66,6 +66,9 @@ defineProps({
                                         <div class="hidden sm:flex sm:flex-col sm:items-end font-bold">
                                             <p class="mt-1 text-xs leading-5 text-gray-900 uppercase">Status</p>
                                         </div>
+                                        <div class="hidden sm:flex sm:flex-col sm:items-end font-bold">
+                                            <p class="mt-1 text-xs leading-5 text-gray-900 uppercase">Actions</p>
+                                        </div>
                                     </li>
                                     <li v-for="user_booking in user_bookings" class="flex justify-between px-10 py-5">
                                         <!-- <pre>{{user_booking}}</pre> -->
@@ -86,6 +89,67 @@ defineProps({
                                             <p v-if="user_booking.status === 'requested'" class="mt-1 text-xs leading-5 text-gray-500 uppercase bg-[#fbbf24] text-white py-1 px-3 rounded">{{user_booking.status}}</p>
                                             <p v-else-if="user_booking.status === 'booked'" class="mt-1 text-xs leading-5 text-gray-500 uppercase bg-[#22c55e] text-white py-1 px-3 rounded">{{user_booking.status}}</p>
                                             <p v-else class="mt-1 text-xs leading-5 text-gray-500 uppercase bg-[#dc2626] text-white py-1 px-3 rounded">{{user_booking.status}}</p>
+                                        </div>
+                                        <div class="hidden sm:flex sm:flex-col sm:items-end">
+                                            <div class="" v-if="!user_booking.payment_data && user_booking.status === 'booked'">
+                                                <Link class="bg-indigo-500 text-white py-1 px-3 rounded" :href="route('sermonBooking.paySlip.create', user_booking.id)">Payment Slip Upload</Link>
+                                            </div>
+                                            <div class="" v-else-if="user_booking.payment_data && user_booking.status === 'booked'">
+                                                <button class="bg-indigo-300 text-white py-1 px-3 rounded 
+                                                relative
+                                                before:content-[attr(data-tip)]
+                                                before:absolute
+                                                before:px-3 before:py-2
+                                                before:left-1/2 before:-left-3
+                                                before:w-max before:max-w-xs
+                                                before:-translate-y-1/2 before:-translate-x-full
+                                                before:bg-gray-700 before:text-white
+                                                before:rounded-md before:opacity-0
+                                                before:transition-all
+                                                before:z-0
+
+                                                after:absolute
+                                                after:left-1/2 after:-left-3
+                                                after:h-0 after:w-0
+                                                after:-translate-x-1/2 after:border-8
+                                                after:border-t-gray-700
+                                                after:border-l-transparent
+                                                after:border-b-transparent
+                                                after:border-r-transparent
+                                                after:opacity-0
+                                                after:transition-all
+                                                after:z-10
+
+                                                hover:before:opacity-100 hover:after:opacity-100" data-tip="You have uploaded Bank Slip." disabled >Payment Slip Upload</button>
+                                            </div>
+                                            <div class="" v-else>
+                                                <button class="bg-indigo-300 text-white py-1 px-3 rounded 
+                                                relative
+                                                before:content-[attr(data-tip)]
+                                                before:absolute
+                                                before:px-3 before:py-2
+                                                before:left-1/2 before:-left-3
+                                                before:w-max before:max-w-xs
+                                                before:-translate-y-1/2 before:-translate-x-full
+                                                before:bg-gray-700 before:text-white
+                                                before:rounded-md before:opacity-0
+                                                before:transition-all
+                                                before:z-0
+
+                                                after:absolute
+                                                after:left-1/2 after:-left-3
+                                                after:h-0 after:w-0
+                                                after:-translate-x-1/2 after:border-8
+                                                after:border-t-gray-700
+                                                after:border-l-transparent
+                                                after:border-b-transparent
+                                                after:border-r-transparent
+                                                after:opacity-0
+                                                after:transition-all
+                                                after:z-10
+
+                                                hover:before:opacity-100 hover:after:opacity-100" data-tip="Wait till the request is approved." disabled >Payment Slip Upload</button>
+                                            </div>
                                         </div>
                                     </li>
                                 </ul>

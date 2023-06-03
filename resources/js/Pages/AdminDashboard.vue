@@ -136,6 +136,9 @@ const declineRequest = (bookingId) => {
                                 <p class="text-sm leading-6 text-gray-900 font-bold">Day / Date</p>
                             </div>
                             <div class="hidden sm:flex sm:flex-col sm:items-end">
+                                <p class="mt-1 text-xs leading-5 text-gray-900 font-bold uppercase">Payment Slip</p>
+                            </div>
+                            <div class="hidden sm:flex sm:flex-col sm:items-end">
                                 <p class="mt-1 text-xs leading-5 text-gray-900 font-bold uppercase">Status</p>
                             </div>
                             <div class="flex item-center justify-center sm:flex sm:flex-col sm:items-end">
@@ -155,6 +158,12 @@ const declineRequest = (bookingId) => {
                                 <p class="mt-1 text-xs leading-5 text-gray-500 uppercase">{{user_booking.sermon_day_data.date}}</p>
                             </div>
                             <div class="hidden sm:flex sm:flex-col sm:items-end">
+                                <!-- <pre>{{ user_booking.payment_data }}</pre> -->
+                                <p v-if="user_booking.payment_data" class="mt-1 text-xs leading-5 text-gray-500 uppercase bg-[#22c55e] text-white py-1 px-3 rounded">Available</p>
+                                <p v-else-if="!user_booking.payment_data && user_booking.status === 'requested'" class="mt-1 text-xs leading-5 text-gray-500 uppercase bg-[#4f46e5] text-white py-1 px-3 rounded">Not Yet</p>
+                                <p v-else class="mt-1 text-xs leading-5 text-gray-500 uppercase bg-[#dc2626] text-white py-1 px-3 rounded">Unavailable</p>
+                            </div>
+                            <div class="hidden sm:flex sm:flex-col sm:items-end">
                                 <p v-if="user_booking.status === 'requested'" class="mt-1 text-xs leading-5 text-gray-500 uppercase bg-[#fbbf24] text-white py-1 px-3 rounded">{{user_booking.status}}</p>
                                 <p v-else-if="user_booking.status === 'booked'" class="mt-1 text-xs leading-5 text-gray-500 uppercase bg-[#22c55e] text-white py-1 px-3 rounded">{{user_booking.status}}</p>
                                 <p v-else class="mt-1 text-xs leading-5 text-gray-500 uppercase bg-[#dc2626] text-white py-1 px-3 rounded">{{user_booking.status}}</p>
@@ -162,6 +171,7 @@ const declineRequest = (bookingId) => {
                             <div class="flex item-center justify-center sm:flex sm:flex-col sm:items-end">
                                 <button type="button" @click="acceptRequest(user_booking.id)" class="mt-1 text-xs leading-5 text-gray-500 uppercase bg-[#22c55e] text-white py-1 px-3 rounded"><i class='bx bx-check-circle text-[16px]'></i> Accept</button>
                                 <button type="button" @click="declineRequest(user_booking.id)" class="mt-1 text-xs leading-5 text-gray-500 uppercase bg-[#dc2626] text-white py-1 px-3 rounded"><i class='bx bx-x-circle text-[16px]'></i> Decline</button>
+                                <Link v-if="user_booking.payment_data" :href="route('sermonBooking.paySlip.show', user_booking.payment_data.id)" class="mt-1 text-xs leading-5 text-white uppercase bg-[#22c55e] my-3 py-1 px-1 rounded">View Payment</Link>
                             </div>
                         </li>
                     </ul>

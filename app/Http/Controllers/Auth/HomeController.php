@@ -14,7 +14,7 @@ class HomeController extends Controller
 
         if (auth()->user()->hasRole('admin')) {
 
-            $userBookings = SermonBooking::with(['sermonDayData', 'sermonBookedUserData'])->get();
+            $userBookings = SermonBooking::with(['sermonDayData', 'sermonBookedUserData', 'paymentData'])->get();
 
             return Inertia::render('AdminDashboard',[
                 'user_bookings' => $userBookings,
@@ -23,7 +23,7 @@ class HomeController extends Controller
 
         } else {
 
-            $userBookings = SermonBooking::with(['sermonDayData', 'sermonBookedUserData'])->where('booked_by_id', auth()->user()->id)->get();
+            $userBookings = SermonBooking::with(['sermonDayData', 'sermonBookedUserData', 'paymentData'])->where('booked_by_id', auth()->user()->id)->get();
 
             return Inertia::render('Dashboard', [
                 'user_bookings' => $userBookings,

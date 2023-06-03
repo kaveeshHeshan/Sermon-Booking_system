@@ -17,4 +17,10 @@ class UserProfile extends Model
         'mobile_number',
         'address',
     ];
+
+    // Related User Profile Data
+    public function userData()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
+    }
 }

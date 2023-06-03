@@ -49,7 +49,7 @@ class SermonDaysController extends Controller
             'date' => $request->date,
         ]);
 
-        return redirect('/sermon_days')->with('success', 'Sermon Day added successfully!');
+        return redirect('/sermon_days')->with(['status'=>'success', 'message' => 'Sermon Day added successfully!']);
     }
 
     /**
@@ -92,7 +92,7 @@ class SermonDaysController extends Controller
 
         $sermon_day->update($request->all());
 
-        return redirect('/sermon_days')->with('success', 'Sermon Day updated successfully!');
+        return redirect('/sermon_days')->with(['status'=>'success', 'message' => 'Sermon Day updated successfully!']);
 
     }
 

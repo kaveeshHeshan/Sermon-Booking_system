@@ -3,7 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, useForm, Link } from '@inertiajs/vue3';
 
 const props = defineProps({
     sermonDay: Object,
@@ -33,7 +33,9 @@ const form = useForm({
 
         <div class="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8 flex items-center justify-center text-center">
             <div class="w-screen bg-white overflow-hidden shadow-sm sm:rounded-lg p-12 w-full">
-                
+                <div class="flex items-center justify-start text-2xl font-bold">
+                    <Link :href="route('sermonDays.index')" class="rounded-md bg-indigo-600 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Back</Link>
+                </div>
                 <!--  -->
 
                 <form @submit.prevent="form.put(route('sermonDays.update', sermonDay.id))">

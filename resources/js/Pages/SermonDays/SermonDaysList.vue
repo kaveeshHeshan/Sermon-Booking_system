@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, usePage } from '@inertiajs/vue3';
 
 defineProps({
     sermonDays: Array,
@@ -30,7 +30,10 @@ defineProps({
                     </div>
                 </div>
                 <div v-else class="">
-                    <div class="items-right justify-right text-right">
+                    <div class="flex items-center justify-between text-right mb-5">
+                        <div class="text-2xl font-bold">
+                            <Link :href="route('dashboard')" class="rounded-md bg-indigo-600 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Back</Link>
+                        </div>
                         <div class="">
                             <Link
                                 :href="route('sermonDays.create')"

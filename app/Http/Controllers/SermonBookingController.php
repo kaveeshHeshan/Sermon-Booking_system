@@ -57,7 +57,7 @@ class SermonBookingController extends Controller
             'booked_by_id' => auth()->user()->id,
         ]);
 
-        return redirect('/dashboard')->with('success', 'Sermon Booking successfully requested!');
+        return redirect('/dashboard')->with(['status'=>'success', 'message' => 'Sermon Booking successfully requested!']);
 
     }
 
@@ -187,7 +187,7 @@ class SermonBookingController extends Controller
 
         }
 
-        return redirect('/dashboard')->with('success', 'Payment Slip stored successfully!');
+        return redirect('/dashboard')->with(['status'=>'success', 'message' => 'Payment Slip stored successfully!']);
 
     }
 

@@ -3,12 +3,26 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
 
 defineProps({
     mustVerifyEmail: Boolean,
     status: String,
 });
+
+const flashMsg = usePage().props.flash;
+
+if (flashMsg.message) {
+    Swal.fire({
+        toast: true,
+        position: 'bottom-end',
+        icon: flashMsg.status,
+        title: flashMsg.message,
+        showConfirmButton: false,
+        timer: 3500
+    });
+}
+
 </script>
 
 <template>
@@ -33,9 +47,9 @@ defineProps({
                     <UpdatePasswordForm class="max-w-xl" />
                 </div>
 
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <!-- <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <DeleteUserForm class="max-w-xl" />
-                </div>
+                </div> -->
             </div>
         </div>
     </AuthenticatedLayout>

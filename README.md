@@ -33,4 +33,5 @@ As I mentioned in the introduction, I have used following technologies to build 
 
 9. Then again run **php artisan serve** in a terminal.
 10. After that run **npm run dev** in another terminal.
-11. Then click the URL generated in **Ninth (9)** step and you are good to go.
+11. Make sure to run **php artisan storage:link** in another terminal.
+12. Then click the URL generated in **Ninth (9)** step and you are good to go.

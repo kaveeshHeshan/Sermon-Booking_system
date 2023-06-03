@@ -153,51 +153,6 @@ defineProps({
                                         </div>
                                     </li>
                                 </ul>
-                                <!-- <table class="w-full text-sm text-left">
-                                    <thead class="text-xs text-dark uppercase bg-white border-b border-gray-400">
-                                        <tr>
-                                            <th scope="col" class="px-6 py-3">
-                                                Name
-                                            </th>
-                                            <th scope="col" class="px-6 py-3">
-                                                Description
-                                            </th>
-                                            <th scope="col" class="px-6 py-3">
-                                                Date
-                                            </th>
-                                            <th scope="col" class="px-6 py-3">
-                                                Type
-                                            </th>
-                                            <th scope="col" class="px-6 py-3">
-                                                
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr v-for="user_booking in user_bookings" class="bg-white">
-                                            <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
-                                                {{ user_booking.id }}
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                {{ user_booking.description }}
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                {{ user_booking.sermon_day_id }}
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                {{ user_booking.status }}
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                <Link v-show="user_booking.status === 'requested'"
-                                                    :href="route('sermonBooking.edit', user_booking.id)"
-                                                    class="bg-[#facc15] rounded px-3 py-2 text-white"
-                                                    >
-                                                    <i class='bx bxs-edit'></i>
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table> -->
                             </div>
                         </div>
                     </div>
@@ -205,7 +160,7 @@ defineProps({
                 <div v-else class="">
                     <div class="border border-gray-400 border-dashed p-12 rounded">
                         <i class='bx bx-plus text-[40px] text-gray-600'></i>
-                        <p class="text-gray-600">Add New Sermon Days</p>
+                        <p class="text-gray-600">Add New Sermon Booking</p>
                         <br>
                         <Link :href="route('sermonBooking.create')" class="bg-[#a855f7] rounded px-6 py-3 text-white">Add Sermon Booking</Link>
                         <br>

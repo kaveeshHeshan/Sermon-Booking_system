@@ -22,15 +22,15 @@ As I mentioned in the introduction, I have used following technologies to build 
 2. Copy and paste the **.env.example** file and rename it to the **.env**.
 3. Then add **Database configurations** to the **.env** file (what you created in second step).
 4. Then run **composer update**.
-5. Run **npm install**.
-6. Then again run **php artisan serve** in a terminal.
-7. After that run **npm run dev** in another terminal.
-8. I have added an **Backup SQL file** in **backup** folder. If you want, you can import it to the DB created by you..
-9. Run **php artisan migrate** to create tables in database ( NOTE : If you are not importing the backup sql file ).
-10. If you are going with step 9 instead of doing 8th step, You will have to run seeders respectively.
+5. Make sure to run **php artisan key:generate** to generate the key.
+6. Run **npm install**.
+7. Run **php artisan migrate** to create tables in database.
+8. You will have to run seeders respectively.
 
     -   1. RolesSeeder
     -   2. AdminSeeder
     -   3. PoyaDaysSeeder
 
-11. Then click the URL generated in **sixth (6)** step and you are good to go.
+9. Then again run **php artisan serve** in a terminal.
+10. After that run **npm run dev** in another terminal.
+11. Then click the URL generated in **Ninth (9)** step and you are good to go.
